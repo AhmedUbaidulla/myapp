@@ -8,7 +8,7 @@
 body{
 font-family: Arial;
 text-align:center;
-background:#f2f2f2;
+background:#f0f0f0;
 padding:40px;
 }
 
@@ -16,9 +16,9 @@ padding:40px;
 background:white;
 padding:30px;
 border-radius:10px;
-max-width:500px;
+max-width:600px;
 margin:auto;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
 button{
@@ -28,20 +28,29 @@ font-size:16px;
 cursor:pointer;
 }
 
+.correct{
+background:green;
+color:white;
+}
+
+.wrong{
+background:red;
+color:white;
+}
+
 </style>
+
 </head>
 
 <body>
 
 <div class="quiz-box">
 
-<h2 id="question">Question</h2>
+<h2 id="question">Question appears here</h2>
 
 <div id="answers"></div>
 
-<h3 id="result"></h3>
-
-<button onclick="nextQuestion()">Next Question</button>
+<h3 id="score"></h3>
 
 </div>
 
@@ -65,49 +74,53 @@ correct:2
 question:"Suffix for alcohol?",
 answers:["-ane","-ene","-ol","-yne"],
 correct:2
+},
+
+{
+question:"Name of C2H6?",
+answers:["Ethane","Methane","Propane","Butane"],
+correct:0
 }
 
 ];
 
-let current = 0;
+let currentQuestion = 0;
+let score = 0;
 
 function loadQuestion(){
 
-const q = quiz[current];
+const q = quiz[currentQuestion];
 
 document.getElementById("question").innerText = q.question;
 
 let answersHTML="";
 
-q.answers.forEach((a,i)=>{
-answersHTML += `<button onclick="checkAnswer(${i})">${a}</button><br>`;
+q.answers.forEach((answer,index)=>{
+answersHTML += `<button onclick="checkAnswer(${index})">${answer}</button><br>`;
 });
 
 document.getElementById("answers").innerHTML = answersHTML;
 
-document.getElementById("result").innerText="";
-
 }
 
-function checkAnswer(i){
+function checkAnswer(index){
 
-if(i===quiz[current].correct){
-document.getElementById("result").innerText="✅ Correct!";
-}
-else{
-document.getElementById("result").innerText="❌ Wrong";
-}
+const correct = quiz[currentQuestion].correct;
 
+if(index===correct){
+score++;
 }
 
-function nextQuestion(){
+currentQuestion++;
 
-current++;
+if(currentQuestion >= quiz.length){
 
-if(current>=quiz.length){
 document.getElementById("question").innerText="Quiz Finished!";
 document.getElementById("answers").innerHTML="";
+document.getElementById("score").innerText="Score: "+score+" / "+quiz.length;
+
 return;
+
 }
 
 loadQuestion();
