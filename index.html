@@ -1,49 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <link rel="stylesheet" href="style.css">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Organic Chemistry Compound Namer</title>
+<title>Chemistry Quiz</title>
+
+<style>
+
+body{
+font-family: Arial;
+text-align:center;
+background:#f2f2f2;
+padding:40px;
+}
+
+.quiz-box{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:500px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
 </head>
+
 <body>
-  <h1>Organic Chemistry Compound Namer</h1>
 
-  <label for="carbons">Number of carbons:</label>
-  <select id="carbons">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-  </select>
+<div class="quiz-box">
 
-  <br><br>
+<h2 id="question">Question</h2>
 
-  <label for="type">Compound type:</label>
-  <select id="type">
-    <option value="alkane">Alkane</option>
-    <option value="alkene">Alkene</option>
-    <option value="alcohol">Alcohol</option>
-  </select>
+<div id="answers"></div>
 
-  <br><br>
+<h3 id="result"></h3>
 
-  <label for="position">Position (for alkene/alcohol):</label>
-  <select id="position">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-  </select>
+<button onclick="nextQuestion()">Next Question</button>
 
-  <br><br>
+</div>
 
-  <button id="generateBtn">Generate Name</button>
+<script>
 
-  <h2>Result:</h2>
-  <p id="result">Your compound name will appear here.</p>
+const quiz = [
 
-  <script src="script.js"></script>
+{
+question:"What is the name of CH4?",
+answers:["Methane","Ethane","Propane","Butane"],
+correct:0
+},
+
+{
+question:"How many carbons in propane?",
+answers:["1","2","3","4"],
+correct:2
+},
+
+{
+question:"Suffix for alcohol?",
+answers:["-ane","-ene","-ol","-yne"],
+correct:2
+}
+
+];
+
+let current = 0;
+
+function loadQuestion(){
+
+const q = quiz[current];
+
+document.getElementById("question").innerText = q.question;
+
+let answersHTML="";
+
+q.answers.forEach((a,i)=>{
+answersHTML += `<button onclick="checkAnswer(${i})">${a}</button><br>`;
+});
+
+document.getElementById("answers").innerHTML = answersHTML;
+
+document.getElementById("result").innerText="";
+
+}
+
+function checkAnswer(i){
+
+if(i===quiz[current].correct){
+document.getElementById("result").innerText="✅ Correct!";
+}
+else{
+document.getElementById("result").innerText="❌ Wrong";
+}
+
+}
+
+function nextQuestion(){
+
+current++;
+
+if(current>=quiz.length){
+document.getElementById("question").innerText="Quiz Finished!";
+document.getElementById("answers").innerHTML="";
+return;
+}
+
+loadQuestion();
+
+}
+
+loadQuestion();
+
+</script>
+
 </body>
 </html>
