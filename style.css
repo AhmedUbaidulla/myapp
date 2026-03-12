@@ -1,0 +1,59 @@
+body
+{
+font-family: Arial;
+background: #f4f4f4;
+margin: 0;
+padding: 0;
+}
+
+header
+{
+background: #333;
+color: white;
+padding: 20px;
+text-align: center;
+}
+
+nav a
+{
+color: white;
+margin: 10px;
+text-decoration: none;
+font-weight: bold;
+}
+
+main
+{
+max-width: 700px;
+margin: auto;
+background: white;
+padding: 20px;
+margin-top: 20px;
+border-radius: 5px;
+}
+
+select
+{
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+}
+
+button
+{
+padding: 10px 20px;
+background: #0077ff;
+color: white;
+border: none;
+cursor: pointer;
+}
+
+button:hover
+{
+background: #0055cc;
+}
+
+h2
+{
+margin-top: 20px;
+}
